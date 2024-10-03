@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: jtreutel/demo-frontend:master
+        image: jtreutel/demo-frontend:main
         imagePullPolicy: Always
         env:
           - name: REACT_APP_BACKEND_URL

@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: jtreutel/demo-backend:master
+        image: jtreutel/demo-backend:main
         imagePullPolicy: Always
         env:
           - name: MONGO_CONN_STR
