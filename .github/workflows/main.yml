@@ -53,12 +53,13 @@ jobs:
         with:     
           driver: docker-container
 
+      # Tag with branch name and short hash
       - name: Build & Push Docker Images
         run: |
           export IMAGE_TAG=$(git rev-parse --short HEAD)
           echo "Tag is $IMAGE_TAG"
           cd ${{ matrix.component }}
-          docker buildx build --platform "linux/amd64" -t "${DOCKER_HUB}/${{ matrix.component }}:${IMAGE_TAG}" -f ./Dockerfile --push .
+          docker buildx build --platform "linux/amd64" -t "${DOCKER_HUB}/demo-${{ matrix.component }}:${IMAGE_TAG}" -t "${DOCKER_HUB}/demo-${{ matrix.component }}:${GITHUB_REF##*/}" -f ./Dockerfile --push .
         env:
           DOCKER_HUB: ${{ vars.DOCKER_HUB }}
 
