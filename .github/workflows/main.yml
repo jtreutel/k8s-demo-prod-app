@@ -4,15 +4,31 @@ on:
   push:
     branches:
       - main
-      - develop
   pull_request:
     branches:
       - main
-      - develop
 
 jobs:
   # Step 1: Test the code
-  test:
+  test-frontend:
+    runs-on: ubuntu-latest
+    environment: demo
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+        
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '14'
+          
+      - name: Install Dependencies
+        run: echo "node dependency installation goes here" #TBA
+
+      - name: Run Tests
+        run:  echo "node tests go here" #TBA
+
+  test-backend:
     runs-on: ubuntu-latest
     environment: demo
     steps:
@@ -31,9 +47,11 @@ jobs:
         run:  echo "node tests go here" #TBA
 
   # Steps 2 & 3: Build and Push Docker Images
-  docker:
+  docker-build-push:
     runs-on: ubuntu-latest
-    needs: test
+    needs: 
+      - test-frontend
+      - test-backend
     environment: demo
     strategy:
       matrix:
